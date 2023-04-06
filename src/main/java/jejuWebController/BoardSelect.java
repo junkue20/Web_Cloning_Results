@@ -14,10 +14,10 @@ import webmapper.BoardMapper;
 
 @WebServlet(urlPatterns = { "/board/select.do" })
 
-public class BoradSelect extends HttpServlet {
+public class BoardSelect extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public BoradSelect() {
+	public BoardSelect() {
 		super();
 	}
 

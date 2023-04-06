@@ -12,10 +12,10 @@ import webdto.Board;
 import webmapper.BoardMapper;
 
 @WebServlet(urlPatterns = { "/board/write.do" })
-public class BoradWrite extends HttpServlet {
+public class BoardWrite extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public BoradWrite() {
+	public BoardWrite() {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
