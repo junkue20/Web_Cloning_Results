@@ -30,7 +30,8 @@
 								<div class="card-body">
 
 									<div class="container">
-										<div class="">hit : ${board.hit}</div>
+										<div class="">번호 : ${board.no}</div>
+										<div class="">조회수 : ${board.hit}</div>
 										<div class="">작성자 : ${board.writer}</div>
 										<hr />
 									</div>
@@ -64,6 +65,8 @@
 			</main>
 		</div>
 	</div>
+	<!-- sweetalert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<!-- axios CDN -->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.5/axios.min.js"
@@ -100,25 +103,77 @@
 	}
 	
 	function deleteBoardOne() {
-        if( confirm('정말 삭제하시겠습니까?') == true ) { // js 알림창
-        	
-           	var form = document.createElement("form");
+		
+		Swal.fire({
+			  title: '정말로 지우실건가요?',
+			  text: "지워진 게시글은 복구할 수 없어요!",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: '좋아요, 지워봅시다!'
+			}).then((result) => {
+			  if (result.isConfirmed) {
+				  
+				var form = document.createElement("form"); // 변수 'form'을 선언
+	            	form.action = "deleteone.do";
+	            	form.method = "post"; // post 형식으로 넘김
+	           		form.style.display = "none"; // 별도로 화면표시는 x
+	           	 
+	            var inputNo = document.createElement("input"); 
+	                inputNo.type="text";
+	                inputNo.name="no";
+	              	inputNo.value=${param.no}; // text형식으로 게시글 no를 저장.
+	              	form.appendChild(inputNo);
+
+	            // body 태그에 넣기
+	            
+	            
+	            Swal.fire({
+ 					icon: 'success',
+  					title: '삭제 완료!',
+  					showConfirmButton: false,
+  					timer: 1500
+				})
+	             
+	            document.body.appendChild(form);
+	            form.submit();
+				  
+			    
+			  }
+			})
+			
+			
+         /* if( confirm('정말 삭제하시겠습니까?') == true ) { // js 알림창
+        	Swal.fire({
+        		  icon: 'success',
+        		  title: '삭제가 완료되었습니다!',
+        		  showConfirmButton: false,
+        		  timer: 1500
+        		})
+        		
+        		
+           	var form = document.createElement("form"); // 변수 'form'을 선언
             	form.action = "deleteone.do";
             	form.method = "post"; // post 형식으로 넘김
-           		form.style.display = "none";
+           		form.style.display = "none"; // 별도로 화면표시는 x
            	 
-            var inputNo = document.createElement("input");
+            var inputNo = document.createElement("input"); 
                 inputNo.type="text";
                 inputNo.name="no";
-              	inputNo.value=${obj.no};
+              	inputNo.value=${param.no}; // text형식으로 게시글 no를 저장.
               	form.appendChild(inputNo);
 
             // body 태그에 넣기
+             
             document.body.appendChild(form);
             form.submit();
-        } else {
-           return;
-        }          
+           
+        }      
+        else {
+          	return;
+        }         */
+        
      };
 	</script>
 </body>

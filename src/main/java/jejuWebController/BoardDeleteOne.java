@@ -21,16 +21,20 @@ public class BoardDeleteOne extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BoardMapper mapper = MyBatisContext.getSqlSession().getMapper(BoardMapper.class);
 
-		long ln = Long.parseLong(request.getParameter("no"));
-		int ret = mapper.deleteBoardOne(ln);		
+		long no = Long.parseLong(request.getParameter("no"));
+		
+		
+		request.setAttribute("no", no);
+		
+		int ret = mapper.deleteBoardOne(no);		
 		
 		if(ret == 1) { // 성공했을 때 => 게시판 목록 이동
 			// 주소창을 selectlist.do로 변경시키고, 엔터키를 누름. GET
-			response.sendRedirect("/WEB-INF/select.do");
+			response.sendRedirect("select.do");
 		}
 		else { // 실패했을때 => 다시 게시글 화면으로 이동
 			// 주소창을 insertone.do로 변경시키고 엔터키를 자동화 GET
-			response.sendRedirect("/WEB-INF/selectone.do?no=${no}");
+			response.sendRedirect("selectone.do?no=${no}");
 		}
 	}
 }

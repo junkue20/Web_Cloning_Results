@@ -127,6 +127,6 @@ public interface BoardMapper {
 				"  DELETE FROM board  ",
 				"  WHERE no =#{no}  "
 		} )
-		public int deleteBoardOne(@Param("obj") long board);
+		public int deleteBoardOne(@Param("no") long no);
 
 }
