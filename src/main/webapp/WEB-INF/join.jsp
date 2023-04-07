@@ -67,8 +67,8 @@
 												</div>
 											</div>
 											<input type="text" class="form-control mb-3"
-												id="sample6_detailAddress" placeholder="상세주소"> 
-											<input type="text" class="form-control mb-3"
+												id="sample6_detailAddress" placeholder="상세주소"> <input
+												type="text" class="form-control mb-3"
 												id="sample6_extraAddress" placeholder="추가정보">
 										</div>
 										<hr>

@@ -135,6 +135,7 @@
 				writer.focus();
 				return false;
 			}
+		
 
 			/* 
 				<form action="write.do" metod="post">

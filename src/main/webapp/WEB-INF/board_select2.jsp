@@ -50,17 +50,15 @@
 												<th scope="col">date</th>
 											</tr>
 										</thead>
-										<tbody>
-											<c:forEach var="obj" items="${list}">
-												<tr>
-													<td scope="row">${obj.no}</td>
-													<td><a href="#" onclick="ajaxUpdateHit('${obj.no}')">${obj.title}</a></td>
-													<td>${obj.content}</td>
-													<td>${obj.writer}</td>
-													<td>${obj.hit}</td>
-													<td>${obj.regdate}</td>
-												</tr>
-											</c:forEach>
+										<tbody id="tbody">
+											<tr>
+												<td scope="row">${obj.no}</td>
+												<td>${obj.title}</td>
+												<td>${obj.content}</td>
+												<td>${obj.writer}</td>
+												<td>${obj.hit}</td>
+												<td>${obj.regdate}</td>
+											</tr>
 										</tbody>
 									</table>
 									<hr />
@@ -98,42 +96,63 @@
 		integrity="sha512-frFP3ZxLshB4CErXkPVEXnd5ingvYYtYhE5qllGdZmcOlRKNEPbufyupfdSTNmoF5ICaQNO6SenXzOZvoGkiIA=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script>
-	async function ajaxUpdateHit(no){
-		// 1. restful을 이용해서 조회수를 증가
-		const url = '${pageContext.request.contextPath}/api/board/updatehit.json?no=' + no;
-		const headers = {"Content-Type":"application/json"};
+	$(function(){
+		// 1. restful 호출해서 목록을 받아오는 것.. 
+		async function ajaxBoardList(page) {
+			// 같은 서버내에서는 http://127.0.0.1:8080/web03 생략이 가능하다.
+			const url = '${pageContext.request.contextPath}/api/board/select.json?page=' + page;
+			const headers = {"Content-Type":"application/json"};
+			
+			const { data } = await axios.get(url,{headers}); 
+			// await 코드때문에 실행이 끝나기 전까지 아래의 코드는 실행되지 않는다.
+			console.log(data);
 		
-		//await axios.get(url, {headers})
-		//await axios.post(url, body, {headers})
-		//await axios.put(url, body, {headers})
-		//await axios.delete(url, {headers:{ }, data:{ }})
 		
-		const {	data } = await axios.put(url, {}, {headers});
-		console.log(data);
-		if(data.result === 1) {
-			// 2. 상세화면 페이지로 전환
-			window.location.href='selectone.do?no=' + no;
-		}			
-	}
+			// 1-2. 함수를 pages정보를 넘겨서 생서시킴
+			initPagination ( Number(data.pages) );
+		
+		
+		
+			const tbody = document.getElementById('tbody');
+			tbody.innerHTML = '';
+			// 가져온 data를 반복문을 통해 출력
+			for(let tmp of data.list) {
+				console.log(tmp.no, tmp.title, tmp.content);
+				tbody.innerHTML +=
+					'<tr>' +
+						'<td scope="row">' + tmp.no + '</td>' +
+						'<td>' + tmp.title + '</td>' +
+						'<td>' + tmp.content + '</td>' +
+						'<td>' + tmp.writer + '</td>' +
+						'<td>' + tmp.hit + '</td>' +
+						'<td>' + tmp.regdate + '</td>' +
+					'</tr>';
+			}
+		};
 	
-		$(function() {
+		ajaxBoardList(1);
+	
+	 
+		// 2. 페이지네이션 생성하는 함수
+		function initPagination(pages) {
 			$('#pagination-demo').twbsPagination({
-				totalPages : Number('${pages}'),
+				totalPages : pages,
 				visiblePages : 10,
 				first : '◀',
 				last : '▶',
 				next : '▷',
 				prev : '◁',
-				initiateStartPageClick : false,
-				// 페이지 활성화 (주소창에 있는 페이지값을 받아오는 역할)
-				startPage : Number('${param.page}'),
-				onPageClick : function(event, page) {
-					/*$('#page-content').text('Page ' + page);*/
-					window.location.href = "select.do?page=" + page;
+				onPageClick  : function (event, page) {
+					// 1번 함수호출
+					ajaxBoardList(page);
 				}
 			});
-		});
+		};
+		
+	});
+	
 	</script>
+
 </body>
 </html>
 

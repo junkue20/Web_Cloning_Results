@@ -13,7 +13,7 @@ import webmapper.BoardMapper;
 
 
 // MyBatisContext.getSqlSession
-public class MybatisContext {
+public class MyBatisContext {
 
 	public static SqlSession getSqlSession() {
 		

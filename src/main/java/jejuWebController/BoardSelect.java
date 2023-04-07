@@ -3,7 +3,7 @@ package jejuWebController;
 import java.io.IOException;
 import java.util.List;
 
-import config.MybatisContext;
+import config.MyBatisContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,10 +16,6 @@ import webmapper.BoardMapper;
 
 public class BoardSelect extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	public BoardSelect() {
-		super();
-	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -36,11 +32,11 @@ public class BoardSelect extends HttpServlet {
 		int end = Integer.parseInt(page) * 10;
 
 		// 1. DB에서 게시글 전체 읽기
-		List<Board> list = MybatisContext.getSqlSession()
+		List<Board> list = MyBatisContext.getSqlSession()
 				.getMapper(BoardMapper.class).selectBoardList(start, end);
 
 		// 1-1. 전체 게시글 갯수 페이지네이션 전달
-		long cnt = MybatisContext.getSqlSession().getMapper(BoardMapper.class).countBoardList();
+		long cnt = MyBatisContext.getSqlSession().getMapper(BoardMapper.class).countBoardList();
 
 		// 2. view로 list 전달
 		request.setAttribute("list", list);

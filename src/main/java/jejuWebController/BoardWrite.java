@@ -2,7 +2,7 @@ package jejuWebController;
 
 import java.io.IOException;
 
-import config.MybatisContext;
+import config.MyBatisContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -40,7 +40,7 @@ public class BoardWrite extends HttpServlet {
 		System.out.println(obj.toString());
 
 		// 1. DB 추가하기
-		int ret = MybatisContext.getSqlSession().getMapper(BoardMapper.class).insertBoard(obj);
+		int ret = MyBatisContext.getSqlSession().getMapper(BoardMapper.class).insertBoard(obj);
 
 		// 2. wjrwjfgks vpdlwlfh dlehd
 		if (ret == 1) {

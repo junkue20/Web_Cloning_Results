@@ -25,55 +25,36 @@
 						<div class="col-lg">
 							<div class="card shadow-lg border-0 rounded-lg mt-5 mb-5">
 								<div class="card-header">
-									<h3 class="text-left font-weight-light my-4">게시글 조회하기</h3>
+									<h3 class="text-left font-weight-light my-4">${board.title}</h3>
 								</div>
 								<div class="card-body">
-									<form class="form-inline d-flex justify-content-first"
-										method="GET" th:action="@{/board/boardList}"
-										th:value="${param.searchText}">
-										<div class="col-auto">
-											<input type="text" class="form-control" id="searchText"
-												name="searchText" placeholder="검색어">
-										</div>
-										<div class="col-auto">
-											<button type="submit" class="btn btn-success mb-2">검색</button>
-										</div>
-									</form>
-									<table class="table">
-										<thead>
-											<tr>
-												<th scope="col">no</th>
-												<th scope="col">title</th>
-												<th scope="col">content</th>
-												<th scope="col">writer</th>
-												<th scope="col">hit</th>
-												<th scope="col">date</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach var="obj" items="${list}">
-												<tr>
-													<td scope="row">${obj.no}</td>
-													<td><a href="#" onclick="ajaxUpdateHit('${obj.no}')">${obj.title}</a></td>
-													<td>${obj.content}</td>
-													<td>${obj.writer}</td>
-													<td>${obj.hit}</td>
-													<td>${obj.regdate}</td>
-												</tr>
-											</c:forEach>
-										</tbody>
-									</table>
-									<hr />
 
-									<div class="col-auto">
-										<a type="button" class="btn btn-success"
-											href="/web01/board/write.do">글쓰기</a>
+									<div class="container">
+										<div class="">hit : ${board.hit}</div>
+										<div class="">작성자 : ${board.writer}</div>
+										<hr />
 									</div>
+									<div class="">${board.content}</div>
+									<hr />
+									<div>
+										<h5>${board.regdate}</h5>
+									</div>
+									<hr />
+									<div class="mb-3 row">
+										<div class="col-sm-10">
+											<a class="btn btn-success" href="select.do">목록으로</a>
+											<button class="btn btn-secondary" href="#">수정하기</button>
+											<a class="btn btn-secondary" href="#"
+												onclick="deleteBoardOne()">삭제하기</a> <a
+												class="btn btn-warning " href="#"
+												onclick="ajaxUpdateHit('${prevNo}')">이전글</a> <a
+												class="btn btn-warning " href="#"
+												onclick="ajaxUpdateHit('${nextNo}')">다음글</a>
+										</div>
+									</div>
+
 									<br>
-									<div class="col-auto pull-end">
-										<ul id="pagination-demo"
-											class="pagination-sm d-flex justify-content-center"></ul>
-									</div>
+									<div class="col-auto pull-end"></div>
 
 								</div>
 							</div>
@@ -98,6 +79,8 @@
 		integrity="sha512-frFP3ZxLshB4CErXkPVEXnd5ingvYYtYhE5qllGdZmcOlRKNEPbufyupfdSTNmoF5ICaQNO6SenXzOZvoGkiIA=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script>
+	
+	// 페이지 넘어가기 전 조회수 1 증가시키기
 	async function ajaxUpdateHit(no){
 		// 1. restful을 이용해서 조회수를 증가
 		const url = '${pageContext.request.contextPath}/api/board/updatehit.json?no=' + no;
@@ -116,23 +99,27 @@
 		}			
 	}
 	
-		$(function() {
-			$('#pagination-demo').twbsPagination({
-				totalPages : Number('${pages}'),
-				visiblePages : 10,
-				first : '◀',
-				last : '▶',
-				next : '▷',
-				prev : '◁',
-				initiateStartPageClick : false,
-				// 페이지 활성화 (주소창에 있는 페이지값을 받아오는 역할)
-				startPage : Number('${param.page}'),
-				onPageClick : function(event, page) {
-					/*$('#page-content').text('Page ' + page);*/
-					window.location.href = "select.do?page=" + page;
-				}
-			});
-		});
+	function deleteBoardOne() {
+        if( confirm('정말 삭제하시겠습니까?') == true ) { // js 알림창
+        	
+           	var form = document.createElement("form");
+            	form.action = "deleteone.do";
+            	form.method = "post"; // post 형식으로 넘김
+           		form.style.display = "none";
+           	 
+            var inputNo = document.createElement("input");
+                inputNo.type="text";
+                inputNo.name="no";
+              	inputNo.value=${obj.no};
+              	form.appendChild(inputNo);
+
+            // body 태그에 넣기
+            document.body.appendChild(form);
+            form.submit();
+        } else {
+           return;
+        }          
+     };
 	</script>
 </body>
 </html>

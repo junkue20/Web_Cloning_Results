@@ -8,10 +8,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/pinterest.html"})
-public class pinterest extends HttpServlet {
+public class Pinterest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public pinterest() {
+	public Pinterest() {
 	}
 //	${pageContext.request.contextPath}/resources/day08/
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
