@@ -59,6 +59,8 @@
 		</div>
 	</div>
 
+	<!-- sweetalert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
@@ -124,19 +126,18 @@
 			const content = quill.root.innerHTML; // 위쪽의 editor 객체를 통해서 가져오기
 
 			/*   유효성 검사   */
-			if (title.length <= 0) { // 최소 1자 이상 입력해야 함. 
+			if (title.length == 0) { // 최소 1자 이상 입력해야 함. 
 				alert('제목을 입력하세요.')
 				title.focus();
 				return false; // 아래쪽 소스코드를 수행하지 않음. 함수가 종료됨.
 			}
 
-			if (writer.length <= 0) {
+			if (writer.length == 0) {
 				alert('작성자를 입력하세요.')
 				writer.focus();
 				return false;
 			}
 		
-
 			/* 
 				<form action="write.do" metod="post">
 			 		<input type="text" name="title" value="실제입력값"></input>
@@ -167,9 +168,19 @@
 			input3.name = "writer";
 			input3.value = writer.value;
 			form.appendChild(input3);
+			
+			
+			
 
 			document.body.appendChild(form);
 			form.submit();
+
+			Swal.fire({
+				icon : 'success',
+				title : '게시글 등록 완료!',
+				showConfirmButton : false,
+				timer : 2000
+			})
 		}
 	</script>
 </body>

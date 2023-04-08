@@ -53,8 +53,8 @@
 										<tbody>
 											<c:forEach var="obj" items="${list}">
 												<tr>
-													<td scope="row">${obj.no}</td>
-													<td><a href="#" onclick="ajaxUpdateHit('${obj.no}')">${obj.title}</a></td>
+													<td scope="row"><a href="#" onclick="ajaxUpdateHit('${obj.no}')">${obj.no}</td>
+													<td>${obj.title}</a></td>
 													<td>${obj.content}</td>
 													<td>${obj.writer}</td>
 													<td>${obj.hit}</td>
