@@ -31,8 +31,8 @@
 								<div class="card-body">
 									<form>
 										<div class="form-floating mb-3">
-											<input type="text" class="form-control" id="title"> <label
-												for="floatingInput">제목</label>
+											<input type="text" class="form-control" id="title" for="floatingInput" autofocus required /> 
+											<label  >제목</label>
 										</div>
 										<div id="editor" style="height: 400px">
 											<p>Hello World!</p>
@@ -45,9 +45,9 @@
 										</div>
 										<div class="form-floating mt-3 mb-3">
 											<input type="text" class="form-control" id="writer"
-												for="floatingInput"> <label>작성자</label>
+												for="floatingInput" autofocus required /> <label>작성자</label>
 										</div>
-										<a class="btn btn-primary btn-right" href="#"
+										<a class="btn btn-success btn-right" href="#"
 											onclick="getEditorContent()">글쓰기</a>
 									</form>
 								</div>
@@ -121,19 +121,27 @@
 		});
 
 		function getEditorContent() {
-			const title = document.getElementById("title");
-			const writer = document.getElementById("writer");
 			const content = quill.root.innerHTML; // 위쪽의 editor 객체를 통해서 가져오기
 
 			/*   유효성 검사   */
-			if (title.length == 0) { // 최소 1자 이상 입력해야 함. 
-				alert('제목을 입력하세요.')
+			const title = document.getElementById("title");
+			if (title.value.length <= 0) { // 최소 1자 이상 입력해야 함. 
+				Swal.fire(
+						  '제목은 어디로 갔죠..?',
+						  '제목을 입력해주세요!',
+						  'question'
+						)
 				title.focus();
 				return false; // 아래쪽 소스코드를 수행하지 않음. 함수가 종료됨.
 			}
-
-			if (writer.length == 0) {
-				alert('작성자를 입력하세요.')
+			
+			const writer = document.getElementById("writer");
+			if (writer.value.length <= 0) {
+				Swal.fire(
+						  '작성자님은 어디로 가셨죠..?',
+						  '작성자명을 입력해주세요!',
+						  'question'
+						)
 				writer.focus();
 				return false;
 			}
