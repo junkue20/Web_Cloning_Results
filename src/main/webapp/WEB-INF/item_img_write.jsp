@@ -24,12 +24,11 @@
 			<main>
 				<div class="container">
 					<div class="row justify-content-center">
-						<div class="col-lg">
+						<div class="col-lg ">
 							<div class="card shadow-lg border-0 rounded-lg mt-5">
 								<div class="card-header">
 									<h3 class="text-left font-weight-light my-4">🖼️ 물품이미지 등록</h3>
 								</div>
-
 								<form id="form"
 									action="${pageContext.request.contextPath}/item/imagewrite.do"
 									method="post" enctype="multipart/form-data">
@@ -40,7 +39,8 @@
 												for="ino" class="form-label">물품번호</label>
 										</div>
 										<c:forEach var='tmp' items="${no}">
-											<img src="${pageContext.request.contextPath}/item/image?no=${tmp}"
+											<img
+												src="${pageContext.request.contextPath}/item/image?no=${tmp}"
 												style="width: 70px; height: 70px">
 										</c:forEach>
 										<hr />
@@ -79,7 +79,53 @@
 											onclick="insertImageBatch()"></input> <a
 											class="btn btn-secondary" href="select.do">목록으로</a>
 									</div>
+
 								</form>
+								<hr />
+								<div class="card-body">
+									<c:forEach var="no" items="${imageNo}">
+									${no} :
+										<img
+											src="${pageContext.request.contextPath}/item/image?no=${no}"
+											style="width: 70px; height: 70px">
+										<button onclick="itemImageUpdateModal('${no}', '${ino}')"
+											class="btn btn-warning">수정</button>
+										<button onclick="itemImageDelete('${no}', '${ino}')"
+											class="btn btn-danger">삭제</button>
+										<br />
+									</c:forEach>
+								</div>
+
+								<!-- Modal -->
+								<div class="modal fade" id="exampleModal" tabindex="-1"
+									aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<form action="imageupdate.do" method="post"
+										enctype="multipart/form-data">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">이미지 수정</h5>
+													<button type="button" class="btn-close"
+														data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													이미지 번호 : <input type="text" name="imageNo"
+														id="modal_image_no" readonly /><br /> 현재 적용된 이미지 : <img
+														src="" style="width: 90px; height: 90px"
+														id="modal_image_src"><br /> <input type="hidden"
+														name="ino" value="${ino}"> 이미지변경 : <input
+														name="file" type="file" id="modal_image_file"
+														onchange="imageUpdateChange(this)" /><br />
+												</div>
+												<div class="modal-footer">
+													<input type="submit" class="btn btn-success" value="변경하기" />
+													<button type="button" class="btn btn-secondary"
+														data-bs-dismiss="modal">취소</button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -89,8 +135,78 @@
 	</div>
 	<!-- sweetalert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+	<!-- jQuery -->
+	<script
+		src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+
+
+
 	<script>
+		function itemImageUpdateModal(no, ino) {
+			const imageNo = document.getElementById("modal_image_no"); // 이미지 넘버
+			const imageSrc = document.getElementById("modal_image_src"); // 이미지 주소
+			const imageFile = document.getElementById("modal_image_file");// 이미지 파일
+			
+			imageNo.value = no;
+			imageSrc.src = "${pageContext.request.contextPath}/item/image?no=" + no; // 받은 이미지 넘버를 토대로 주소완성
+			
+			const modal = new bootstrap.Modal(document.getElementById("exampleModal"),{});
+			modal.show();
+		}
+	
+		function itemImageDelete(no, ino) {
+			Swal.fire({
+				  title: '정말로 지우실건가요?',
+				  text: "지워진 이미지는 복구할 수 없어요!",
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '좋아요, 지워봅시다!'
+				}).then((result) => {
+			if (result.isConfirmed) {
+				// <form action="imagedelete.do" method="post" style="display:none;">
+				var form = document.createElement("form");
+				form.setAttribute("action", "imagedelete.do");
+				form.setAttribute("method", "post");
+				form.style.display = "none";
+
+				// <input type="hidden" name="imageno" value="삭제할 이미지번호">
+				var input = document.createElement("input");
+				input.setAttribute("type", "hidden");
+				input.setAttribute("name", "no");
+				input.setAttribute("value", no);
+				console.log(no);
+
+				// <input type="hidden" name="ino" value="삭제할 물품번호">
+				var input1 = document.createElement("input");
+				input1.setAttribute("type", "hidden");
+				input1.setAttribute("name", "ino");
+				input1.setAttribute("value", Number(ino));
+				console.log( Number(ino));
+				// form 태그에 추가
+				form.appendChild(input);
+				form.appendChild(input1);
+
+				Swal.fire({
+	 					icon: 'success',
+	  					title: '삭제 완료!',
+	  					showConfirmButton: false,
+	  					timer: 3000
+					})
+				
+				// body에 추가
+				document.body.appendChild(form);
+				// form 전송
+				 form.submit(); 
+			}
+		  })
+		};
+
 		// document.getElementById("아이디"); id가 일치하는 1개 찾기
 		// document.getElementsByName("name값"); name값이 일치하는 n개 찾기
 		// document.getElementsByClassName("class값"); class값이 일치하는 n개 찾기
@@ -130,6 +246,18 @@
 				img.src = URL.createObjectURL(e.files[0]); // 가상의 url 정보를 생성해서 추가함. 
 			} else { // 취소
 				img.src = "${pageContext.request.contextPath}/resources/images.png";
+			}
+		}
+		
+		function imageUpdateChange(e) {
+			console.log(e.files);
+			if (e.files.length > 0) { // 첨부
+				// 파일을 첨부하면 크롬에서 "blob:http://127.0.0.1:8080/...."라고 콘솔창에 띄운다.
+				console.log(URL.createObjectURL(e.files[0])); // 확인용
+
+				modal_image_src.src = URL.createObjectURL(e.files[0]); // 가상의 url 정보를 생성해서 추가함. 
+			} else { // 취소
+				modal_image_src.src = "${pageContext.request.contextPath}/resources/images.png";
 			}
 		}
 

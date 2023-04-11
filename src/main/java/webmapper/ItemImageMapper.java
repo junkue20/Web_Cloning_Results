@@ -27,6 +27,7 @@ public interface ItemImageMapper {
 	
 /*------------------------------------------------------------------------*/
 	
+	// 이미지 1개 가져가기 
 	@Select( value = {
 		"	SELECT * FROM itemimage  ",
 		" 	WHERE no=#{no}	"	
@@ -35,18 +36,20 @@ public interface ItemImageMapper {
 	
 /*------------------------------------------------------------------------*/
 	
+	// 물품번호를 이용하여 관련된 전체 이미지번호 반환
 	@Select( value = {
 			"	SELECT no FROM itemimage  ",
 			" 	WHERE itemno=#{no}	ORDER BY no DESC"	
-		} )
-		public List<Long> selectItemImageList(@Param("no") long no);
+	} )
+	public List<Long> selectItemImageList(@Param("no") long no);
+	
 /*------------------------------------------------------------------------*/
-
+	
 	@Delete( value = {
 			" 	DELETE FROM itemimage	",
 			"	WHERE no = #{no} AND itemno = #{itemno}	"
 			
-		} )
+	} )
 	public int deleteItemImageListOne(@Param("no") long no,@Param("itemno") long itemno );
 
 /*------------------------------------------------------------------------*/
@@ -62,4 +65,7 @@ public interface ItemImageMapper {
 			
 	} )
 	public int updateItemImageOne(@Param("obj") ItemImage itemimage );
+
+/*------------------------------------------------------------------------*/
+
 }
