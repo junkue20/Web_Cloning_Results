@@ -29,11 +29,11 @@
 
 					<div class="form-floating mb-2">
 						<input type="password" id="pw" class="form-control" required /> <label
-							for="pw" class="form-label">암호</label>
+							for="pw" id="lbl_pwCheck" class="form-label">암호</label>
 					</div>
 					<div class="form-floating mb-2">
-						<input type="password" id="pw1" class="form-control" required />
-						<label for="pw1" class="form-label">암호재확인</label>
+						<input type="password" id="pw1" class="form-control" onkeyup="ajaxPWCheck(this)" required/>
+						<label for="pw1" id="lbl_pwCheck" class="form-label" >암호재확인</label>
 					</div>
 					<div class="form-floating mb-2">
 						<input type="text" id="name" class="form-control" required /> <label
@@ -60,6 +60,28 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.5/axios.min.js"></script>	
 
 	<script>
+	
+	function ajaxPWCheck(e) {
+		console.log(e.value);
+	      var pw = document.getElementById('pw').value;
+	      var pw1 = document.getElementById('pw1').value;
+	      
+	      
+	      if(pw.length < 6) { lbl_pwCheck
+				document.getElementById("lbl_pwCheck").innerText = '비밀번호는 6글자 이상이어야 합니다.';
+	          }
+	
+	          if( pw != pw1 ) {
+					document.getElementById("lbl_pwCheck").innerText = '입력한 글자가 6글자 이상이어야 합니다.';
+	            return false;
+	          } else {
+	        	  document.getElementById("lbl_pwCheck").innerText = '비밀번호가 일치합니다!';
+				  document.getElementById("lbl_pwCheck").style.color = 'blue';
+	            return true;
+	          }
+	    }
+	
+	
 	async function ajaxIDCheck(e){
 		console.log(e.value);
 			document.getElementById("lbl_check").innerText = '아이디';
@@ -71,6 +93,7 @@
 			const headers 	= {"Content-Type":"application/json"};
 			const {data} 	= await axios.get(url, {headers});
 			console.log(data);
+			
 			if(data.ret === 1){
 				document.getElementById("lbl_check").innerText = '이미 사용중인 ID입니다!';
 				document.getElementById("lbl_check").style.color = 'red';
@@ -79,8 +102,6 @@
 			else if(data.ret === 0){
 				document.getElementById("lbl_check").innerText = '사용가능!';
 				document.getElementById("lbl_check").style.color = 'blue';
-				document.getElementById("id").className = 'form-control';
-
 			}
 		} 
 	}
