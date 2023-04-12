@@ -17,17 +17,18 @@ public interface MemberMapper {
 	@Insert( value = {
 			"  INSERT INTO memtb   ",
 					"  ( id , password , ",
-				      "  name , age )  ",
+				      "  name , age, role )  ",
 			"  VALUES (  ",
 				      "  #{obj.id}, #{obj.password},  ",
-				      "  #{obj.name}, #{obj.age})  ",
+				      "  #{obj.name}, #{obj.age}, #{obj.role})  ",
 	})
 	public int insertMemberOne(@Param("obj") Member obj);
 
 /*------------------------------------------------------------------------*/
 
+	// 로그인
 	@Select( value = {
-			"	SELECT id, name, age	",
+			"	SELECT id, name, age, role	",
 			"	FROM memtb 	",
 			"	WHERE id = #{obj.id} AND password = #{obj.password}	"
 	} )

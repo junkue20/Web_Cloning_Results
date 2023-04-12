@@ -21,4 +21,6 @@ public class Member {
 	  private int age; // 나이
 	  private Date regdate = new Date(); // 고객등록일
 	  private String newPassword;
+	  private String role; // 고객은 customer, 판매자는 seller로 역할배정.
+
 }

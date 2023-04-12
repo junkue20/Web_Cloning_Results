@@ -16,8 +16,10 @@
 			timer: 2500
 		});
 		
-		window.location.href = '${url}'; // 주소창을 바꾸고 enter키 (a 태그와 동일한 기능)
-
+		window.location.href = '${url}';
+		
+		 // 주소창을 바꾸고 enter키 (a 태그와 동일한 기능)
+		
 		/* alert('${message}'); // 알람을 표시 */
 		
 	</script>

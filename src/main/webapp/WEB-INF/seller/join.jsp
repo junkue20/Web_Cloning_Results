@@ -7,7 +7,7 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>고객용 회원가입 페이지</title>
+<title>판매자용 회원가입 페이지</title>
 <!-- bootstrap -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -17,10 +17,8 @@
 </head>
 <body>
 	<div class="container">
-		<div
-			style="width: 600px; margin: 0 auto; padding: 50px; border: 1px solid #efefef;">
-			<h3>구매자 회원가입</h3>
-			<form action="join.do" method="post" id="form">
+		<div style="width: 600px; margin: 0 auto; padding: 50px; border: 1px solid #efefef;">
+			<h3>판매자 회원가입</h3>
 				<div class="row">
 					<div class="col-sm">
 						<div class="form-floating mb-2">
@@ -53,25 +51,54 @@
 						</div>
 					</div>
 				</div>
-			</form>
 		</div>
 	</div>
 
 	<!-- sweetalert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<!-- jQuery -->
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.min.js"></script>
+	<script	src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.min.js"></script>
 	<!-- axios -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.5/axios.min.js"></script>
-
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.5/axios.min.js"></script>
 	<script>
+	async function restJoinAction(){
+		const id = document.getElementById('id');
+		const pw = document.getElementById('pw');
+		const name = document.getElementById('name');
+		const age = document.getElementById('age');
+		
+		const url 	   = '${pageContext.request.contextPath}/api/seller/join.json';
+		const headers  = { "Content-Type": "application/x-www-form-urlencoded" };
+		const body 	   = { id : id.value, pw : pw.value, name : name.valeue, age : age.value  };
+		const { data } = await axios.post(url, body, {headers});
+		console.log(data);
+		
+		if(data.ret === 1) {
+			Swal.fire({
+				icon: 'success',
+				title: '회원가입 성공!',
+				text: '새로 가입한 정보로 로그인해주세요!',
+				showConfirmButton: true,
+				timer: 3000
+			});
+		
+			window.location.href='home.do';
+		}
+		else{
+			Swal.fire({
+				icon: 'error',
+				title: '회원가입 오류!',
+				text: '관리자에게 문의해주세요.',
+				showConfirmButton: true,
+			});
+		}
+	}
+	
+	
 	// 공통변수 모든 함수에서 사용가능함.
 	
 	var idcheck = 0; // 1이면 사용가능, 나머지는 사용불가 처리
-	
-	function joinAction () {
+	function joinAction() {
 		const id = document.getElementById('id');
 		const pw = document.getElementById('pw');
 		const name = document.getElementById('name');
@@ -172,37 +199,11 @@
 			return false;
 		}
 		
-		// form의 내용을 button을 눌러 강제로 submit 수행!
-		 document.getElementById('form').submit();
+		restJoinAction();
 	}
 	
 	
 	
-	/* function ajaxPWCheck(e) {
-		console.log(e.value);
-	      var pw = document.getElementById('pw').value;
-	      var pw1 = document.getElementById('pw1').value;
-	      document.getElementById("lbl_pwCheck").innerText = '비밀번호';
-	      document.getElementById("lbl_pwCheck").style.color = 'black';
-			document.getElementById("pw").className = 'form-control';
-	      
-	      if(pw.length < 6) { lbl_pwCheck
-				document.getElementById("lbl_pwCheck").innerText = '비밀번호는 6글자 이상이어야 합니다.';
-	          }	
-	          if( pw != pw1 ) {
-					document.getElementById("lbl_pwCheck").innerText = '비밀번호가 일치하지 않습니다!';
-					document.getElementById("lbl_pwCheck").style.color = 'red';
-					document.getElementById("pw").className = 'form-control is-invalid';
-	          } else if(pw === pw1) {
-	        	  document.getElementById("lbl_pwCheck").innerText = '비밀번호가 일치합니다.';
-				  document.getElementById("lbl_pwCheck").style.color = 'blue';
-	          }
-	          else {
-					document.getElementById("lbl_pwCheck").innerText = '비밀번호는 6글자 이상이어야 합니다.';
-
-	          }
-	    }
-	 */
 	
 	async function ajaxIDCheck(e){
 		if(e.value.length>0) {
@@ -232,7 +233,6 @@
 			document.getElementById("id").className = 'form-control';
 		}
 	}
-	
 	
 	</script>
 </body>
