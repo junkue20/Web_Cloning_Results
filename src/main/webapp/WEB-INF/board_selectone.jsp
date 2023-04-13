@@ -142,38 +142,6 @@
 			    
 			  }
 			})
-			
-			
-         /* if( confirm('정말 삭제하시겠습니까?') == true ) { // js 알림창
-        	Swal.fire({
-        		  icon: 'success',
-        		  title: '삭제가 완료되었습니다!',
-        		  showConfirmButton: false,
-        		  timer: 1500
-        		})
-        		
-        		
-           	var form = document.createElement("form"); // 변수 'form'을 선언
-            	form.action = "deleteone.do";
-            	form.method = "post"; // post 형식으로 넘김
-           		form.style.display = "none"; // 별도로 화면표시는 x
-           	 
-            var inputNo = document.createElement("input"); 
-                inputNo.type="text";
-                inputNo.name="no";
-              	inputNo.value=${param.no}; // text형식으로 게시글 no를 저장.
-              	form.appendChild(inputNo);
-
-            // body 태그에 넣기
-             
-            document.body.appendChild(form);
-            form.submit();
-           
-        }      
-        else {
-          	return;
-        }         */
-        
      };
 	</script>
 </body>
