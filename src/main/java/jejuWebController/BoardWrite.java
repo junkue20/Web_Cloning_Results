@@ -9,7 +9,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import webdto.Board;
+import webdto.Member;
 import webmapper.BoardMapper;
+import webmapper.MemberMapper;
 
 @WebServlet(urlPatterns = { "/board/write.do" })
 public class BoardWrite extends HttpServlet {
@@ -20,12 +22,18 @@ public class BoardWrite extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String id = (String) request.getSession().getAttribute("UID");
+		Member obj = MyBatisContext.getSqlSession()
+				.getMapper(MemberMapper.class).selectMemberOne(id);
+		request.setAttribute("obj", obj);
+		
 		// main.jsp 파일 랜더링
 		request.getRequestDispatcher("/WEB-INF/board_write.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		// 항목에 해당하는 내용들 받아오기
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");

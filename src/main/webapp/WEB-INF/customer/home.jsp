@@ -7,7 +7,7 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>고객용용 홈</title>
+<title>고객용 홈</title>
 <!-- bootstrap -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -17,7 +17,9 @@
 </head>
 <body>
 	<div class="container">
+	<h3>고객용 홈</h3>
 		<a href="home.do" class="btn btn-primary">홈으로</a>
+		<a href="/web01/board/select.do" class="btn btn-success">자유게시판</a>
 		<!-- 세션이 빈 상태일때  -->
 		<c:if test="${sessionScope.UID eq null}">
 			<a href="login.do" class="btn btn-success">로그인</a>
@@ -25,6 +27,7 @@
 		</c:if>
 		<!-- 세션에 로그인 정보가 들어있을때  -->
 		<c:if test="${sessionScope.UID ne null}">
+		<a href="mypage.do" class="btn btn-success">마이페이지</a>
 		<label>${sessionScope.UNAME}님, 안녕하세요?</label>
 			<a href="#" onclick="logoutAction()" class="btn btn-danger">로그아웃</a>
 		</c:if>

@@ -34,9 +34,11 @@
 										<div class="col-auto">
 											<input type="text" class="form-control" id="searchText"
 												name="searchText" placeholder="검색어">
+												<button type="submit" class="btn btn-success">검색</button>
+												<a href="/web01/customer/home.do" class="btn btn-primary mb-2">홈으로</a>
 										</div>
 										<div class="col-auto">
-											<button type="submit" class="btn btn-success mb-2">검색</button>
+											
 										</div>
 									</form>
 									<table class="table">

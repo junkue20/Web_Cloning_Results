@@ -50,8 +50,9 @@ public class BoardSelectOne extends HttpServlet {
 		// 5. view 표시
 		request.getRequestDispatcher("/WEB-INF/board_selectone.jsp").forward(request, response);
 	
-		
-		
+		// 세션에서 ID값 받아오기
+		String id = (String) request.getSession().getAttribute("UID");
+		request.setAttribute("id", id);
 		
 	
 	

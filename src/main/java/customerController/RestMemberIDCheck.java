@@ -3,7 +3,6 @@ package customerController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
@@ -14,8 +13,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import webdto.Board;
-import webmapper.BoardMapper;
 import webmapper.MemberMapper;
 
 // 127.00.1:8080/web01/api/member/idcheck.json?id=중복아이디

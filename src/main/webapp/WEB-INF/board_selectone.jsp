@@ -103,7 +103,7 @@
 	}
 	
 	function deleteBoardOne() {
-		
+				
 		Swal.fire({
 			  title: '정말로 지우실건가요?',
 			  text: "지워진 게시글은 복구할 수 없어요!",

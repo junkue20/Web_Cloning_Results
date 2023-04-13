@@ -35,6 +35,17 @@ public interface MemberMapper {
 	public Member selectmemberLogin(@Param("obj") Member obj);
 
 /*------------------------------------------------------------------------*/
+
+	// 정보 가져오기
+	@Select( value = {
+			"	SELECT id, name, age, role	",
+			"	FROM memtb 	",
+			"	WHERE id = #{obj.id}"
+	} )
+	public Member selectMemberOne(String id);
+
+	
+/*------------------------------------------------------------------------*/
 	
 	@Update( value = {
 		"	<script>	",

@@ -45,7 +45,7 @@
 										</div>
 										<div class="form-floating mt-3 mb-3">
 											<input type="text" class="form-control" id="writer"
-												for="floatingInput" autofocus required /> <label>작성자</label>
+												for="floatingInput" autofocus required value="${obj.id}" readonly/><label>작성자</label>
 										</div>
 										<a class="btn btn-success btn-right" href="#"
 											onclick="getEditorContent()">글쓰기</a>

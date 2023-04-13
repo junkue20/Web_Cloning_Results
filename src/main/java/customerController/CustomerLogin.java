@@ -15,7 +15,7 @@ import webdto.Member;
 import webmapper.MemberMapper;
 
 // 컨트롤러 역활 X, DB에 있는 이미지를 URL 형태로 변경해서 반환하는 용도
-@WebServlet(urlPatterns = { "/customer/login.do" })
+@WebServlet(urlPatterns = { "/customer/login.do", "/board/login.do" })
 @MultipartConfig()
 public class CustomerLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
