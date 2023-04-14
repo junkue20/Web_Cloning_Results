@@ -1,6 +1,7 @@
 package customerController;
 
 import java.io.IOException;
+import java.util.List;
 
 import config.MyBatisContext;
 import jakarta.servlet.ServletException;
@@ -9,6 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import webdto.Purchase;
+import webdto.PurchaseView;
 import webmapper.PurchaseMapper;
 
 // 127.00.1:8080/web01/customer/home.do
@@ -19,6 +21,8 @@ public class CustomerPurchase extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/customer/purchase.jsp").forward(request, response);
+		String customerid = (String) request.getSession().getAttribute("UID");
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -42,6 +46,7 @@ public class CustomerPurchase extends HttpServlet {
 			request.setAttribute("text", "다시 시도해주세요.");
 			request.getRequestDispatcher("/WEB-INF/alert.jsp").forward(request, response);
 		}
+
 		response.sendRedirect("mypage.do?menu=4");
 	}
 	

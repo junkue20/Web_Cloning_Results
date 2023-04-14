@@ -1,6 +1,7 @@
 package customerController;
 
 import java.io.IOException;
+import java.util.List;
 
 import config.Hash;
 import config.MyBatisContext;
@@ -11,7 +12,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import webdto.Member;
+import webdto.Purchase;
 import webmapper.MemberMapper;
+import webmapper.PurchaseMapper;
 
 // 127.00.1:8080/web01/customer/home.do
 @WebServlet(urlPatterns = { "/customer/mypage.do" })
@@ -37,8 +40,12 @@ public class CustomerMypage extends HttpServlet {
 			// 아이디를 전송해서 이름과 나이를 받아옴.
 			request.setAttribute("obj", obj);
 		}
-		request.getRequestDispatcher("/WEB-INF/customer/mypage.jsp").forward(request, response);
 
+		List<Purchase> list = MyBatisContext.getSqlSession().getMapper(PurchaseMapper.class).selectPurchaseMember(id);
+		request.setAttribute("list", list);
+		System.out.println(list.toString());
+		
+		request.getRequestDispatcher("/WEB-INF/customer/mypage.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -126,9 +133,7 @@ public class CustomerMypage extends HttpServlet {
 				request.setAttribute("text", "비밀번호를 다시한번 확인해주세요.");
 				request.getRequestDispatcher("/WEB-INF/alert.jsp").forward(request, response);
 			}
-		} else if (menu == 4) { // 주문내역
-
-		}
+		} 
 
 	}
 }
