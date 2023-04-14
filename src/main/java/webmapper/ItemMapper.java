@@ -33,7 +33,7 @@ public interface ItemMapper {
 			"  LIKE  '%' || #{text} || '%'  ",
 			"  ORDER BY no DESC  "
 	} )
-	public List<Item> selectItemList(@Param("column") String column,@Param("text") String text );
+	public List<Item> findItemList(@Param("column") String column,@Param("text") String text );
 
 /*------------------------------------------------------------------------------------------------------*/
 	
@@ -48,9 +48,9 @@ public interface ItemMapper {
 
 	// 전체목록
 		@Select ( value = {
-				"	SELECT * FROM Item		"
+				"	SELECT * FROM Item	ORDER BY no DESC	"
 		} )
-		public List<Item> selectItem();
+		public List<Item> selectItemListAll();
 
 /*------------------------------------------------------------------------------------------------------*/
 	
@@ -63,5 +63,11 @@ public interface ItemMapper {
 				"  ORDER BY no DESC  "
 		} )
 		public List<Item> selectTenItemList(@Param("start") int start, @Param("end") int end ); // 1, 2, 3, 4, 각 페이지당 10개씩
-		
+/*------------------------------------------------------------------------------------------------------*/
+
+	// 한개조회
+		@Select ( value = {
+				"	SELECT * FROM item WHERE no =#{itemno}	"
+		} )
+		public Item selectOneItem(@Param("itemno") long itemno);
 }

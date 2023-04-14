@@ -68,4 +68,14 @@ public interface ItemImageMapper {
 
 /*------------------------------------------------------------------------*/
 
+	// 물품 이미지번호를 가장 작은것을 반환하며, 없을시 0을 반환.
+	// 홈페이지 물품 이미지용
+	@Select ( value = {
+			 "	SELECT NVL(min(no),0) ",
+			 "	FROM itemimage ",
+			 "	WHERE itemno = #{itemno}	"
+	} )
+	public long selectItemImageMinOne(@Param("itemno") long itemno);
+	
+/*------------------------------------------------------------------------*/
 }

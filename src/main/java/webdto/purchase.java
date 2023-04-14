@@ -13,15 +13,11 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item {
-
-	private long no;
-	private String name;
-	private String content;
-	private long quantity;
-	private long price;
-	private Date regdate;
-	
-	private long imageNo; // 대표 이미지번호를 저장할 임시변수
+public class purchase {
+	private long no; // 시퀀스 사용
+	private long cnt;
+	private long itemno;
+	private String customerid;
+	private Date regdate; // 자동으로 들어감.
 
 }
