@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class purchase {
+public class Purchase {
 	private long no; // 시퀀스 사용
 	private long cnt;
 	private long itemno;

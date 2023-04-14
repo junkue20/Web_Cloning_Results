@@ -12,12 +12,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-// 127.0.0.1:8080/web01/customer/home.do  		작동안됨!
-//127.0.0.1:8080/web01/customer/mypage.do  		작동됨!
-// 127.0.0.1:8080/web01/customer/orderlist.do   작동됨!
+// 로그인을 해야하는 페이지 체크용
 
 /* 필터를 사용할 주소창을 입력 */
-@WebFilter(urlPatterns = { "/customer/mypage.do", "/customer/orderlist.do", "/board/write.do", "/board/selectone.do" })
+@WebFilter(urlPatterns = { "/customer/mypage.do", "/customer/orderlist.do", 
+							"/board/write.do", "/board/selectone.do", 
+							"/customer/purchase.do"})
 public class CustomerFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2)
@@ -30,7 +30,7 @@ public class CustomerFilter implements Filter {
 		String sessionId = (String) httpSession.getAttribute("UID");
 
 		if (sessionId == null) { // 세션에 등록된 UID 객체가 없으면 다시 로그인 페이지로 보냄.
-			response.sendRedirect("login.do");
+			response.sendRedirect("login.do"); // 혹은 "login.do?url"
 			return; // 메소드를 종료시킨다.
 		}
 		

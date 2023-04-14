@@ -13,6 +13,7 @@ import webmapper.BoardMapper;
 import webmapper.ItemImageMapper;
 import webmapper.ItemMapper;
 import webmapper.MemberMapper;
+import webmapper.PurchaseMapper;
 
 // MyBatisContext.getSqlSession
 public class MyBatisContext {
@@ -54,6 +55,8 @@ public class MyBatisContext {
 			config.addMapper(ItemMapper.class);
 			config.addMapper(ItemImageMapper.class);
 			config.addMapper(MemberMapper.class);
+			config.addMapper(PurchaseMapper.class);
+
 
 			SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(config);
 			sqlSession = factory.openSession(true); // true면 자동으로 commit 수행

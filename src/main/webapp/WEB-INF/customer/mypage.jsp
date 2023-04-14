@@ -35,7 +35,7 @@
 			<jsp:include page="../customer_menu/menu3.jsp"></jsp:include>
 		</c:if>
 		<c:if test="${param.menu == 4}">
-
+			<jsp:include page="../customer_menu/menu4.jsp"></jsp:include>
 		</c:if>
 	</div>
 

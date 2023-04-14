@@ -32,7 +32,7 @@ public class CustomerLogin extends HttpServlet {
 			throws ServletException, IOException {
 		// 비밀번호 암호화
 		String hashPw = Hash.hashPW(request.getParameter("id"),
-									request.getParameter("pw"));
+						request.getParameter("pw"));
 		Member obj = new Member();
 		obj.setId(request.getParameter("id"));
 		obj.setPassword(hashPw);
@@ -50,18 +50,17 @@ public class CustomerLogin extends HttpServlet {
 			httpSession.setAttribute("UNAME", ret.getName());
 			httpSession.setAttribute("UROLE", ret.getRole());
 			
-			request.setAttribute("url", "home.do");
-			request.setAttribute("icon", "success");
-			request.setAttribute("title", "로그인 성공!");
-			request.setAttribute("text", "환영합니다! "+ ret.getName() +"님!");
-			request.getRequestDispatcher("/WEB-INF/alert.jsp").forward(request, response);
-		} else { // 로그인 실패시
-			request.setAttribute("url", "login.do");
-			request.setAttribute("icon", "error");
-			request.setAttribute("title", "로그인 실패");
-			request.setAttribute("text", "아이디 혹은 비밀번호가 일치하지 않아요!");
-			request.getRequestDispatcher("/WEB-INF/alert.jsp").forward(request, response);
-		}
+			String url = (String) httpSession.getAttribute("url"); //저장된 url을 다시 불러오기		
+			if(url == null) {
+				response.sendRedirect("home.do");
+			}
+			else {
+				response.sendRedirect(url);
+			}
+			return; // 메소드 종료
+		} 
+			response.sendRedirect(request.getContextPath() + "/customer/login.do");
+		
 		
 	}
 }

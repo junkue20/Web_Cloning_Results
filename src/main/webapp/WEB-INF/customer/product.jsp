@@ -37,9 +37,9 @@
 		<p>${obj.price}원</p>
 		<form id="form" action="purchase.do" method="post">
 			<input type="hidden" name="itemno" value="${obj.no}"> 
-				<select>
+				<select name="cnt">
 					<c:forEach var="idx" begin="1" end="1000" step="1">
-						<option>${idx}</option>
+						<option value="${idx}">${idx}</option>
 					</c:forEach>
 				</select>
 			<input type="submit" class="btn btn-sm btn-success" value="주문하기" onclick="purchaseAction()"/>
@@ -54,7 +54,7 @@
 	<script	src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.5/axios.min.js"></script>
 	<script>
 		function purchaseAction(){
-		
+			// 주문 여부 물어보는 유효성 검사
 		}
 		
 	</script>
