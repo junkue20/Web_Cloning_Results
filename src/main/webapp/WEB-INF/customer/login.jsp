@@ -29,12 +29,12 @@
 				<div class="row">
 					<div class="col-sm">
 						<div class="form-floating mb-2">
-							<input type="text" id="id" name="id" class="form-control" /> <label
+							<input type="text" id="id" name="id" class="form-control" value="admin"/> <label
 								for="id" class="form-label">아이디</label>
 						</div>
 
 						<div class="form-floating mb-2">
-							<input type="password" id="pw" name="pw" class="form-control" />
+							<input type="password" id="pw" name="pw" class="form-control" value="13131313" />
 							<label for="pw" class="form-label">암호</label>
 						</div>
 						<div>
@@ -60,7 +60,7 @@
 	                    <label for="id1" class="form-label">아이디</label>
 	                </div>
 	                <div class="form-floating mb-2">
-	                    <input type="password" id="pw1" class="form-control" />
+	                    <input type="password" id="pw1" class="form-control"/>
 	                    <label for="pw1" class="form-label">암호</label>
 	                </div>
 	                <div>

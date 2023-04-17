@@ -48,10 +48,7 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.5/axios.min.js"></script>
 	<script>
-	
 		// ---------------------------- 이름, 나이변경
-	
-	
 		function updateMemberInfo() {
 			// 유효성 검사
 			const name = document.getElementsByName("name")[0];
