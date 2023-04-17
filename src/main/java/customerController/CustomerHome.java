@@ -36,7 +36,6 @@ public class CustomerHome extends HttpServlet {
 	}
 	request.setAttribute("list", list);
 	request.getRequestDispatcher("/WEB-INF/customer/home.jsp").forward(request, response);
-
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
