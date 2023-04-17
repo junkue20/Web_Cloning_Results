@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import webdto.Member;
-import webdto.Purchase;
+import webdto.PurchaseView;
 import webmapper.MemberMapper;
 import webmapper.PurchaseMapper;
 
@@ -41,7 +41,7 @@ public class CustomerMypage extends HttpServlet {
 			request.setAttribute("obj", obj);
 		}
 
-		List<Purchase> list = MyBatisContext.getSqlSession().getMapper(PurchaseMapper.class).selectPurchaseMember(id);
+		List<PurchaseView> list = MyBatisContext.getSqlSession().getMapper(PurchaseMapper.class).selectPurchaseViewMember(id);
 		request.setAttribute("list", list);
 		System.out.println(list.toString());
 		

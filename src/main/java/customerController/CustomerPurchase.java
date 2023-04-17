@@ -46,8 +46,15 @@ public class CustomerPurchase extends HttpServlet {
 			request.setAttribute("text", "다시 시도해주세요.");
 			request.getRequestDispatcher("/WEB-INF/alert.jsp").forward(request, response);
 		}
+		else {
+			request.setAttribute("url", "mypage.do?menu=4");
+			request.setAttribute("icon", "success");
+			request.setAttribute("title", "주문 완료");
+			request.setAttribute("text", "빨리 왔으면 좋겠네요!");
+			request.getRequestDispatcher("/WEB-INF/alert.jsp").forward(request, response);
+		}
 
-		response.sendRedirect("mypage.do?menu=4");
+		
 	}
 	
 }
