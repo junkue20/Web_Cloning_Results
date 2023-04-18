@@ -9,19 +9,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>고객용 마이페이지</title>
 <!-- bootstrap -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-	crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+	
 </head>
 <body>
 	<div class="container">
-		<a href="mypage.do?menu=1" class="btn btn-success">회원정보수정</a> <a
-			href="mypage.do?menu=2" class="btn btn-success">비밀번호변경</a> <a
-			href="mypage.do?menu=3" class="btn btn-danger">회원탈퇴</a> <a
-			href="mypage.do?menu=4" class="btn btn-success">주문내역</a> <a
-			href="home.do" class="btn btn-primary">홈으로</a>
+		<nav class="navbar" style="background-color: #e3f2fd;">
+			<a href="home.do" class="btn btn-primary">홈으로</a>
+			<a href="mypage.do?menu=1" class="btn btn-success">회원정보수정</a>
+			<a href="mypage.do?menu=2" class="btn btn-success">비밀번호변경</a> 
+			<a href="mypage.do?menu=4" class="btn btn-success">주문내역</a> 
+			<a href="mypage.do?menu=5" class="btn btn-success">주소관리</a>
+			<a href="mypage.do?menu=3" class="btn btn-danger">회원탈퇴</a> 
+		</nav>
 
 		<hr />
 		<!-- a태그의 menu값에 해당하는 정보가 나오도록 if문 구성 -->
@@ -37,16 +38,19 @@
 		<c:if test="${param.menu == 4}">
 			<jsp:include page="../customer_menu/menu4.jsp"></jsp:include>
 		</c:if>
+		<c:if test="${param.menu == 5}">
+			<jsp:include page="../customer_menu/menu5.jsp"></jsp:include>
+		</c:if>
 	</div>
 
 	<!-- sweetalert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<!-- jQuery -->
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.min.js"></script>
+	<script	src="${pageContext.request.contextPath}/resources/js/jquery-3.6.4.min.js"></script>
 	<!-- axios -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.5/axios.min.js"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.5/axios.min.js"></script>
+	<!-- bootstrap -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 	<script>
 		// ---------------------------- 이름, 나이변경
 		function updateMemberInfo() {

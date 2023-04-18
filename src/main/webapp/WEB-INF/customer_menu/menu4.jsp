@@ -21,7 +21,7 @@
 									</form>
 									<form action="deletepurchase.do" method="post" id="form4">
 									<table class="table">
-										<thead>
+										<thead  class="text-bg-warning p-3">
 											<tr>
 												<th scope="col">주문번호</th>
 												<th scope="col">물품번호</th>
@@ -32,7 +32,7 @@
 												<th scope="col">주문날짜</th>
 											</tr>
 										</thead>
-										<tbody>
+										<tbody >
 										<c:set var="total" value="${0}" />
 											<c:forEach var="obj" items="${list}">
 												<tr>
@@ -46,13 +46,13 @@
 													<c:set var="total" value="${total + obj.totalpirce}" />
 												</tr>
 											</c:forEach>
-											<tr>
+											<tr class="text-bg-light p-3" >
 												<th colspan="6">합계</th>
 												<td><fmt:formatNumber value="${total}" pattern="#,###" /> 원</td>
 											</tr>
 										</tbody>
 									</table>
-									<input type="button" class="btn btn-sm btn-danger" value="주문취소" onclick="deletePurchaseAction()"/>
+									<input type="button" class="btn btn-sm btn-outline-danger" value="주문취소" onclick="deletePurchaseAction()"/>
 									</form>
 									<hr />
 									<div class="col-auto pull-end">

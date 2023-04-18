@@ -11,8 +11,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import webdto.Address;
 import webdto.Member;
 import webdto.PurchaseView;
+import webmapper.AddressMapper;
 import webmapper.MemberMapper;
 import webmapper.PurchaseMapper;
 
@@ -40,11 +42,14 @@ public class CustomerMypage extends HttpServlet {
 			// 아이디를 전송해서 이름과 나이를 받아옴.
 			request.setAttribute("obj", obj);
 		}
-
-		List<PurchaseView> list = MyBatisContext.getSqlSession().getMapper(PurchaseMapper.class).selectPurchaseViewMember(id);
-		request.setAttribute("list", list);
-		System.out.println(list.toString());
-		
+		else if (Integer.parseInt(menu) == 4) { // 구매내역 조회
+			List<PurchaseView> list = MyBatisContext.getSqlSession().getMapper(PurchaseMapper.class).selectPurchaseViewMember(id);
+			request.setAttribute("list", list);
+		}
+		else if (Integer.parseInt(menu) == 5){ // 주소관리
+			List<Address> list =  MyBatisContext.getSqlSession().getMapper(AddressMapper.class).selectMemberAddress(id);
+			request.setAttribute("list", list);
+		}
 		request.getRequestDispatcher("/WEB-INF/customer/mypage.jsp").forward(request, response);
 	}
 
@@ -52,18 +57,17 @@ public class CustomerMypage extends HttpServlet {
 			throws ServletException, IOException {
 		int menu = Integer.parseInt(request.getParameter("menu"));
 		String id = (String) request.getSession().getAttribute("UID");
-				// 이름, 나이변경
-		if (menu == 1) {
+		
+		if (menu == 1) { // 이름, 나이변경
 			String name = request.getParameter("name");
 			int age = Integer.parseInt(request.getParameter("age"));
 			Member obj = new Member();
 			obj.setId(id);
 			obj.setName(name);
 			obj.setAge(age);
-			// mapper 호출 후 변경하기
+			
 			int ret = MyBatisContext.getSqlSession().getMapper(MemberMapper.class).updateMemberInfo(obj);
 
-			// sweetAlert
 			if (ret == 1) {
 				request.setAttribute("url", "mypage.do");
 				request.setAttribute("icon", "success");
@@ -77,8 +81,8 @@ public class CustomerMypage extends HttpServlet {
 				request.setAttribute("text", "변경이 적용되지 않았어요. 다시 시도해주세요.");
 				request.getRequestDispatcher("/WEB-INF/alert.jsp").forward(request, response);
 			}
-			// 비밀번호 변경
-		} else if (menu == 2) {
+			
+		} else if (menu == 2) { // 비밀번호 변경
 			String password = request.getParameter("password");
 			String newPassword = request.getParameter("newPassword");
 
@@ -106,8 +110,8 @@ public class CustomerMypage extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/alert.jsp").forward(request, response);
 			}
 
-			// 회원탈퇴
-		} else if (menu == 3) {
+			
+		} else if (menu == 3) { // 회원탈퇴
 			String password = request.getParameter("password");
 			String hashPw = Hash.hashPW(id, password);
 			Member obj = new Member();
@@ -133,7 +137,7 @@ public class CustomerMypage extends HttpServlet {
 				request.setAttribute("text", "비밀번호를 다시한번 확인해주세요.");
 				request.getRequestDispatcher("/WEB-INF/alert.jsp").forward(request, response);
 			}
-		} 
+		}
 
 	}
 }
